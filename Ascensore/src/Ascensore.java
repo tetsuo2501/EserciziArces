@@ -63,14 +63,20 @@ public class Ascensore {
 
     public static void main( String arg[]){
         Ascensore ascensore = new Ascensore(10, 3, 5);
+
         Prenotazione prenotazioni[] = {
                 new Prenotazione(3,3),
-                new Prenotazione(2,4),
+                new Prenotazione(12,4),
                 new Prenotazione(5,2)
         };
         for( Prenotazione i: prenotazioni)
-            ascensore.entra(i);
-        while (ascensore.muovi() == 0)
+            if( ascensore.entra(i) !=0) break;
+
+        System.out.println("--- Inizio Simulazione");
+        do{
             System.out.println(ascensore);
+        }
+        while (ascensore.muovi() == 0);
+        System.out.println("--- Fine Simulazione");
     }
 }
