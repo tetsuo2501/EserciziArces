@@ -1,6 +1,10 @@
 /**
  * Created by leonardo on 24/04/15.
  */
+
+import java.util.*;
+import java.util.regex.*;
+
 public class Ascensore {
 
     private Prenotazione listaPrenotazioni[];
@@ -79,22 +83,63 @@ public class Ascensore {
 
     }
 
-    public static void main( String arg[]){
-        Ascensore ascensore = new Ascensore(10, 3, 5);
+    public static void main( String arg[]) {
+        Ascensore ascensore = new Ascensore(10, 4, 5);
 
-        Prenotazione prenotazioni[] = {
-                new Prenotazione(3,3),
-                new Prenotazione(12,4),
-                new Prenotazione(5,2)
-        };
-        for( Prenotazione i: prenotazioni)
-            if( ascensore.entra(i) !=0) break;
 
-        System.out.println("--- Inizio Simulazione");
-        do{
-            System.out.println(ascensore);
+        System.out.println("Digita entra <numero persone> <numero piano> per inserire una prenotazione, reset per azzerare lo stato,\n" +
+                "muovi per avviare la simulazione, reset per azzerare i parametri, oppure esci per uscire dal programma\n" +
+                "Ad esempio: entra 5 7 --->Entrano 5 persone che vanno al settimo piano ");
+        while (true){
+            try {
+                Scanner input = new Scanner(System.in);
+                MatchResult result;
+                //Effettua il parsing della stringa immessa
+                input.findInLine("(entra (\\d+) (\\d+)|muovi|esci|reset)");
+                result = input.match();
+                //Se la parola inizia con entra..
+                if(result.group(1).startsWith("entra")){
+                    int persone = Integer.parseInt(result.group(2));
+                    int piano = Integer.parseInt(result.group(3));
+
+                    //Inserisce le persone in lista
+                    switch (ascensore.entra(new Prenotazione(persone, piano))){
+                        case 0:
+                            break;
+                        case 1:
+                            System.out.println("Lista prenotazione piena");
+                            break;
+                        case 2:
+                            System.out.println("Piano non valido");
+                            break;
+                        case 3:
+                            System.out.println("Ascensore pieno, ci sono "+(ascensore.maxPersone-ascensore.personePresenti)+" posti liberi");
+                            break;
+
+                    }
+                }
+                // Se ha scritto muovi chiama il metodo muovi
+                else if(result.group(1).equals("muovi")){
+                    System.out.println("Inizio Simulazione:");
+                    do {
+                        System.out.println(ascensore);
+                    } while(ascensore.muovi() == 0 );
+                    System.out.println("----");
+                } else if(result.group(1).equals("reset")) //Se ha scritto reset...
+                    ascensore.reset();
+                else if( result.group(1).equals("esci")) //Se ha scritto esci...
+                    System.exit(0);
+                else System.err.println("E' successo qualcosa di imprevisto "+result.group(1));
+            }
+            //Catch il possibile errore di parsing in caso si scrive qualcosa di scorretto
+            catch (IllegalStateException e){
+                System.err.println("Attenzione è stato inserito un comando non valido.");
+            }
+
         }
-        while (ascensore.muovi() == 0);
-        System.out.println("--- Fine Simulazione");
+
+
+
+
     }
 }
