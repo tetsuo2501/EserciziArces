@@ -21,6 +21,11 @@ public class Ascensore {
         pianoCorrente = 0;
     }
 
+    /**Inserisce la prenotazione all'interno dell'ascensore
+     *
+     * @param p La prenotazione da inserire
+     * @return Ritorna 0 se va tutto bene, 1 se la lista della Prenotazioni &egrave; piena, 2 se il piano inserito non &egrave; valido, 3 il numero di persone &egrave; maggiore di quelle che entrano nell'ascensore
+     */
     public int entra( Prenotazione p ){
 
         if( prenotazioneCorrente >= listaPrenotazioni.length ){
@@ -38,6 +43,10 @@ public class Ascensore {
         return 0;
     }
 
+    /**
+     * Muove l'ascensore
+     * @return 0 se tutto ok, 1 se ha finito le prenotazioni
+     */
     public int muovi(){
         if(iteratoreRun >= prenotazioneCorrente)
             return 1;
@@ -47,6 +56,10 @@ public class Ascensore {
         personePresenti -= p.getNumeroPersone();
         return 0;
     }
+
+    /**
+     * Azzera le informazioni dell'ascensore
+     */
     public void reset(){
         pianoCorrente = 0;
         personePresenti = 0;
@@ -55,6 +68,11 @@ public class Ascensore {
         iteratoreRun =0;
         prenotazioneCorrente = 0;
     }
+
+    /**
+     *
+     * @return Stringa contenteti le informazioni sullo stato dell'ascensore
+     */
     public String toString(){
         return new String("Stato ascensore: "+personePresenti+" persone presenti, "+
                 " al piano " + pianoCorrente +", " + (prenotazioneCorrente - iteratoreRun) +" Prenotazioni");
