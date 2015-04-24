@@ -5,6 +5,10 @@ public class Prenotazione {
     private int numeroPersone;
     private int numeroPiano;
 
+    Prenotazione(int persone, int piano){
+        numeroPersone = persone;
+        numeroPiano = piano;
+    }
     public int getNumeroPersone() {
         return numeroPersone;
     }
@@ -13,7 +17,7 @@ public class Prenotazione {
         this.numeroPersone = numeroPersone;
     }
 
-    public int getNumeroPiano() {4
+    public int getNumeroPiano() {
         return numeroPiano;
     }
 
