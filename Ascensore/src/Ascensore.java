@@ -83,6 +83,14 @@ public class Ascensore {
 
     }
 
+    public int getMaxPersone() {
+        return maxPersone;
+    }
+
+    public int getPersonePresenti() {
+        return personePresenti;
+    }
+
     public static void main( String arg[]) {
         Ascensore ascensore = new Ascensore(10, 4, 5);
 
@@ -113,7 +121,7 @@ public class Ascensore {
                             System.out.println("Piano non valido");
                             break;
                         case 3:
-                            System.out.println("Ascensore pieno, ci sono "+(ascensore.maxPersone-ascensore.personePresenti)+" posti liberi");
+                            System.out.println("Ascensore pieno, ci sono "+(ascensore.getMaxPersone() -ascensore.getPersonePresenti())+" posti liberi");
                             break;
 
                     }
@@ -128,12 +136,16 @@ public class Ascensore {
                 } else if(result.group(1).equals("reset")) //Se ha scritto reset...
                     ascensore.reset();
                 else if( result.group(1).equals("esci")) //Se ha scritto esci...
+                {
+                    input.close();
                     System.exit(0);
+                }
                 else System.err.println("E' successo qualcosa di imprevisto "+result.group(1));
             }
             //Catch il possibile errore di parsing in caso si scrive qualcosa di scorretto
             catch (IllegalStateException e){
                 System.err.println("Attenzione è stato inserito un comando non valido.");
+
             }
 
         }
