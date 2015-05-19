@@ -11,6 +11,7 @@ import com.googlecode.lanterna.gui.*;
 import com.googlecode.lanterna.terminal.*;
 import com.googlecode.lanterna.gui.layout.*;
 import com.googlecode.lanterna.gui.component.*;
+
 public class Campo {
 
     private ArrayList<Prenotazione>  prenotazioni = new ArrayList<Prenotazione>();
@@ -65,21 +66,22 @@ public class Campo {
     }
 
     public static void main( String arg[]){
-        SwingTerminal terminal = new SwingTerminal();
-        terminal.applyBackgroundColor(Terminal.Color.BLUE);
-        terminal.applyForegroundColor(Terminal.Color.WHITE);
-        Screen screen = new Screen(terminal,80,20);
+        SwingTerminal terminal = new SwingTerminal(new TerminalSize(90,20));
+
+        final Screen screen = new Screen(terminal,80,20);
         GUIScreen gui = new GUIScreen(screen);
         DefaultBackgroundRenderer background = new DefaultBackgroundRenderer();
         gui.setBackgroundRenderer(background);
         final Window window = new Window("");
         TextArea  txtArea = new TextArea();
+
         Button button = new Button("Chiudi", new Action() {
             @Override
             public void doAction() {
                 window.close();
             }
         });
+
         LayoutParameter layout = new LayoutParameter("layout");
         window.addComponent(txtArea, layout);
         window.addComponent(button,layout);
@@ -109,8 +111,15 @@ public class Campo {
         txtArea.appendLine("Utilizzo campo: " + campo.utilizzo() + "%");
         screen.refresh();
         ////////////////////////////
+        gui.runInEventThread(new Action() {
+            @Override
+            public void doAction() {
+                screen.refresh();
 
+            }
+        });
         gui.showWindow(window);
+
         screen.stopScreen();
 
     }
