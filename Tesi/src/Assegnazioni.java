@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 /**
  * Created by Amministratore on 19/05/2015.
@@ -31,9 +28,14 @@ public class Assegnazioni {
     }
 
     public void laureato(String nomeStudente){
-        Studente laureato = this.laureandi.stream().filter(new Studente(nomeStudente)).findFirst().get();
-        tesi.removeIf(laureato.getTesi());
-        laureandi.removeIf(laureato);
+        try {
+            Studente laureato = this.laureandi.stream().filter(new Studente(nomeStudente)).findFirst().get();
+            tesi.removeIf(laureato.getTesi());
+            laureandi.removeIf(laureato);
+        }
+        catch (NoSuchElementException e){
+
+        }
     }
 
     public void liberaTesi(String titoloTesi){

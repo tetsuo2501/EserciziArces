@@ -6,5 +6,9 @@ public class Demo {
         Assegnazioni assegnazioni = new Assegnazioni();
         assegnazioni.aggiungiStudente("pinco pallino", "1");
         assegnazioni.aggiungiTesi("2");
+
+        String nome = "Leonardo";
+        nome = new String("Leonardo");
+        Tesi i = new Tesi("Titolo della tesi");
     }
 }
