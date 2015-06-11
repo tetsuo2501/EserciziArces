@@ -10,6 +10,7 @@ public class MessageReceivedEvent extends EventObject {
     MessageReceivedEvent(Messaggio source) {
         super((Object) source);
         m = source;
+        System.out.println("Messaggio ricevuto: "+source);
     }
 
     @Override

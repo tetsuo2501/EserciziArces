@@ -18,7 +18,7 @@ public class DatagramChat {
 
     private void inviaMessaggio(){
         String testo = textField1.getText();
-        textArea.append(testo);
+        textArea.append(testo+"\n");
         //Memorizza la stringa all'interno del buffer
         send(testo);
     }
@@ -36,11 +36,11 @@ public class DatagramChat {
 
     public void addMessageReceivedListener( MessageReceivedEvent el){
         //messaggio ricevuto
-        textArea.append(el.returnMessaggio().toString());
+        textArea.append(el.returnMessaggio().toString()+"\n");
     }
 
     public DatagramChat() {
-
+        (new Server(this)).start();
         String neighbor = javax.swing.JOptionPane.showInputDialog("Inserire indirizzo partecipante");
         try{
             socket = new DatagramSocket(CLIENT_PORT);
@@ -70,6 +70,7 @@ public class DatagramChat {
         frame.setContentPane(new DatagramChat().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setSize(200,200);
         frame.setVisible(true);
     }
 }

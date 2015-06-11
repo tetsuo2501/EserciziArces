@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="DatagramChat:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DatagramChat_jar</output-path>
+    <root id="root">
+      <element id="archive" name="DatagramChat.jar">
+        <element id="module-output" name="DatagramChat" />
+      </element>
+    </root>
+  </artifact>
+</component>
